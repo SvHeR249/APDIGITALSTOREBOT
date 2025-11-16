@@ -3,7 +3,9 @@ from telegram import Update
 from telegram import InlineKeyboardButton, InlineKeyboardMarkup, Update
 from telegram.ext import Application, CommandHandler, MessageHandler, filters, ContextTypes, CallbackQueryHandler, ApplicationBuilder, ConversationHandler
 
-TOKEN: Final  = '6950847451:AAEme9eHD2VTplrG1rk2gJhsxWsGVeo3nr0'
+import os
+TOKEN = os.getenv("BOT_TOKEN")
+
 BOT_USERNAME: Final = '@AP_Digital_bot'
 GROUP_USERNAME: Final = '@APDigitalSD'
 
