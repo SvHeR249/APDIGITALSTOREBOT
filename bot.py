@@ -3,7 +3,9 @@ import os
 from telegram import Update
 from telegram import InlineKeyboardButton, InlineKeyboardMarkup, Update
 from telegram.ext import Application, CommandHandler, MessageHandler, filters, ContextTypes, CallbackQueryHandler, ApplicationBuilder, ConversationHandler
-
+import requests
+import time
+import threading
 
 TOKEN = os.getenv("BOT_TOKEN")
 PORT = int(os.environ.get('PORT', '8443'))
@@ -101,6 +103,19 @@ CB_ZAMBIA = 'zambia_starlink'
 CB_YEMEN = 'yemen_starlink'
 CB_EUROPE = 'europe_starlink'
 CB_BACK = 'back_to_main'
+
+def keep_alive():
+    """Function to periodically ping the bot's URL to prevent it from sleeping."""
+    while True:
+        try:
+            # We use the WEBHOOK_URL defined earlier to hit the running service
+            response = requests.get(WEBHOOK_URL)
+            print(f"Ping successful, status code: {response.status_code}")
+        except Exception as e:
+            print(f"Ping failed: {e}")
+        
+        # Ping every 4 minutes (240 seconds). Render often spins down after 5 minutes.
+        time.sleep(240)
 
 async def check_membership(context: ContextTypes.DEFAULT_TYPE, user_id: int, group_id: str) -> bool:
     
@@ -1181,6 +1196,9 @@ async def handle_unhandled_text(update: Update, context: ContextTypes.DEFAULT_TY
    
 def main() -> None:
     app = Application.builder().token(TOKEN).build()
+    
+    pinger_thread = threading.Thread(target=keep_alive)
+    pinger_thread.start()
     
     # Define the ConversationHandler
     conv_handler = ConversationHandler (
