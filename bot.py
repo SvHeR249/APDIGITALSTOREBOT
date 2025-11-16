@@ -1,10 +1,14 @@
 from typing import Final
+import os
 from telegram import Update
 from telegram import InlineKeyboardButton, InlineKeyboardMarkup, Update
 from telegram.ext import Application, CommandHandler, MessageHandler, filters, ContextTypes, CallbackQueryHandler, ApplicationBuilder, ConversationHandler
 
-import os
+
 TOKEN = os.getenv("BOT_TOKEN")
+PORT = int(os.environ.get('PORT', '8443'))
+# The full public URL to your bot (e.g., 'https://<appname>.herokuapp.com')
+WEBHOOK_URL = os.environ.get('WEBHOOK_URL', 'YOUR_PUBLIC_URL_HERE')
 
 BOT_USERNAME: Final = '@AP_Digital_bot'
 GROUP_USERNAME: Final = '@APDigitalSD'
@@ -1304,9 +1308,14 @@ def main() -> None:
     app.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, handle_unhandled_text))
     
     # Add a final generic message handler for unhandled text, placed AFTER the ConversationHandler
-    print('starting bot...')
-    print('Polling...')
-    app.run_polling(poll_interval=2)
+    URL_PATH = TOKEN 
+    
+    app.run_webhook(
+        listen="0.0.0.0", # Listen on all available interfaces
+        port=PORT,
+        url_path=URL_PATH,
+        webhook_url=WEBHOOK_URL + '/' + URL_PATH,
+    )
        
 if __name__== '__main__':
     main()
