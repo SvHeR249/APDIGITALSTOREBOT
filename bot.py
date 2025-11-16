@@ -8,7 +8,7 @@ from telegram.ext import Application, CommandHandler, MessageHandler, filters, C
 TOKEN = os.getenv("BOT_TOKEN")
 PORT = int(os.environ.get('PORT', '8443'))
 # The full public URL to your bot (e.g., 'https://<appname>.herokuapp.com')
-WEBHOOK_URL = os.environ.get('WEBHOOK_URL', 'YOUR_PUBLIC_URL_HERE')
+WEBHOOK_URL = os.environ.get('WEBHOOK_URL', 'https://apdigitalstorebot.onrender.com')
 
 BOT_USERNAME: Final = '@AP_Digital_bot'
 GROUP_USERNAME: Final = '@APDigitalSD'
