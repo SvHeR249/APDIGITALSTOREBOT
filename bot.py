@@ -12,8 +12,7 @@ PORT = int(os.environ.get('PORT', '8443'))
 # The full public URL to your bot (e.g., 'https://<appname>.herokuapp.com')
 WEBHOOK_URL = os.environ.get('WEBHOOK_URL', 'https://apdigitalstorebot.onrender.com')
 
-if TOKEN is None:
-    raise ValueError("The BOT_TOKEN environment variable is not set or empty. Cannot start the bot.")
+
 
 BOT_USERNAME: Final = '@AP_Digital_bot'
 GROUP_USERNAME: Final = '@APDigitalSD'
