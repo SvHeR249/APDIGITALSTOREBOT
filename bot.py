@@ -1,19 +1,9 @@
 from typing import Final
-import os
 from telegram import Update
 from telegram import InlineKeyboardButton, InlineKeyboardMarkup, Update
 from telegram.ext import Application, CommandHandler, MessageHandler, filters, ContextTypes, CallbackQueryHandler, ApplicationBuilder, ConversationHandler
-import requests
-import time
-import threading
 
-TOKEN = os.getenv("BOT_TOKEN")
-PORT = int(os.environ.get('PORT', '8443'))
-# The full public URL to your bot (e.g., 'https://<appname>.herokuapp.com')
-WEBHOOK_URL = os.environ.get('WEBHOOK_URL', 'https://apdigitalstorebot.onrender.com')
-
-
-
+TOKEN: Final  = 'BOT_TOKEN'
 BOT_USERNAME: Final = '@AP_Digital_bot'
 GROUP_USERNAME: Final = '@APDigitalSD'
 
@@ -105,21 +95,6 @@ CB_ZAMBIA = 'zambia_starlink'
 CB_YEMEN = 'yemen_starlink'
 CB_EUROPE = 'europe_starlink'
 CB_BACK = 'back_to_main'
-
-KEEP_ALIVE_THREAD_STARTED = False
-
-def keep_alive():
-    """Function to periodically ping the bot's URL to prevent it from sleeping."""
-    while True:
-        try:
-            # We use the WEBHOOK_URL defined earlier to hit the running service
-            response = requests.get(WEBHOOK_URL)
-            print(f"Ping successful, status code: {response.status_code}")
-        except Exception as e:
-            print(f"Ping failed: {e}")
-        
-        # Ping every 4 minutes (240 seconds). Render often spins down after 5 minutes.
-        time.sleep(240)
 
 async def check_membership(context: ContextTypes.DEFAULT_TYPE, user_id: int, group_id: str) -> bool:
     
@@ -1198,10 +1173,8 @@ async def handle_unhandled_text(update: Update, context: ContextTypes.DEFAULT_TY
     """Responds to text that is not a command or callback."""
     await update.message.reply_text("عذراً...الرجاء إختيار احد الأوامر أو الضغط على /start للبدء من جديد")
    
-def setup_application() -> Application:
+def main() -> None:
     app = Application.builder().token(TOKEN).build()
-    
-    
     
     # Define the ConversationHandler
     conv_handler = ConversationHandler (
@@ -1329,32 +1302,9 @@ def setup_application() -> Application:
     app.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, handle_unhandled_text))
     
     # Add a final generic message handler for unhandled text, placed AFTER the ConversationHandler
-    URL_PATH = TOKEN 
-    WEBHOOK_FULL_URL: Final = WEBHOOK_URL + '/' + URL_PATH
-
-    
-    async def set_webhook_on_startup(app: Application) -> None:
-        await app.bot.set_webhook(url=WEBHOOK_FULL_URL)
-
-    app.post_init = set_webhook_on_startup
-    
-    
-
-# --- Global Application Instance ---
-# Initialize the application once.
-# This must be outside the main() function to ensure correct loading.
-application_instance = setup_application()
-
-def main():
-    
-    global KEEP_ALIVE_THREAD_STARTED
-    
-    if not KEEP_ALIVE_THREAD_STARTED:
-        pinger_thread = threading.Thread(target=keep_alive, daemon=True)
-        pinger_thread.start()
-        KEEP_ALIVE_THREAD_STARTED = True
-        print("Keep-alive thread started by Gunicorn worker.")
-    
-    return application_instance
+    print('starting bot...')
+    print('Polling...')
+    app.run_polling(poll_interval=2)
        
-
+if __name__== '__main__':
+    main()
