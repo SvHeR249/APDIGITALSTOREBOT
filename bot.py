@@ -4,18 +4,6 @@ from telegram import Update
 from telegram import InlineKeyboardButton, InlineKeyboardMarkup, Update
 from telegram.ext import Application, CommandHandler, MessageHandler, filters, ContextTypes, CallbackQueryHandler, ApplicationBuilder, ConversationHandler
 
-from flask import Flask
-from threading import Thread
-
-app = Flask('')
-
-@app.route('/')
-def home():
-    return "Bot is running!"
-
-def keep_alive():
-    t = Thread(target=lambda: app.run(host="0.0.0.0", port=8080))
-    t.start()
 
 
 TOKEN = os.getenv("BOT_TOKEN")
@@ -1323,5 +1311,4 @@ def main() -> None:
        
 if __name__== '__main__':
     main()
-    keep_alive()
-    app.run_polling()
+
