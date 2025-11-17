@@ -1353,6 +1353,6 @@ def main():
         KEEP_ALIVE_THREAD_STARTED = True
         print("Keep-alive thread started by Gunicorn worker.")
     
-    return application_instance.webhook_server
+    return application_instance.create_webhook_app()
        
 
