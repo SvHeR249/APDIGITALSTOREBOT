@@ -104,6 +104,8 @@ CB_YEMEN = 'yemen_starlink'
 CB_EUROPE = 'europe_starlink'
 CB_BACK = 'back_to_main'
 
+KEEP_ALIVE_THREAD_STARTED = False
+
 def keep_alive():
     """Function to periodically ping the bot's URL to prevent it from sleeping."""
     while True:
@@ -1194,11 +1196,10 @@ async def handle_unhandled_text(update: Update, context: ContextTypes.DEFAULT_TY
     """Responds to text that is not a command or callback."""
     await update.message.reply_text("عذراً...الرجاء إختيار احد الأوامر أو الضغط على /start للبدء من جديد")
    
-def main() -> None:
+def setup_application() -> Application:
     app = Application.builder().token(TOKEN).build()
     
-    pinger_thread = threading.Thread(target=keep_alive)
-    pinger_thread.start()
+    
     
     # Define the ConversationHandler
     conv_handler = ConversationHandler (
@@ -1327,13 +1328,31 @@ def main() -> None:
     
     # Add a final generic message handler for unhandled text, placed AFTER the ConversationHandler
     URL_PATH = TOKEN 
+    WEBHOOK_FULL_URL: Final = WEBHOOK_URL + '/' + URL_PATH
+
     
-    app.run_webhook(
-        listen="0.0.0.0", # Listen on all available interfaces
-        port=PORT,
-        url_path=URL_PATH,
-        webhook_url=WEBHOOK_URL + '/' + URL_PATH,
-    )
+    async def set_webhook_on_startup(app: Application) -> None:
+        await app.bot.set_webhook(url=WEBHOOK_FULL_URL)
+
+    app.post_init = set_webhook_on_startup
+    
+    return app
+
+# --- Global Application Instance ---
+# Initialize the application once.
+# This must be outside the main() function to ensure correct loading.
+application_instance = setup_application()
+
+def main():
+    
+    global KEEP_ALIVE_THREAD_STARTED
+    
+    if not KEEP_ALIVE_THREAD_STARTED:
+        pinger_thread = threading.Thread(target=keep_alive, daemon=True)
+        pinger_thread.start()
+        KEEP_ALIVE_THREAD_STARTED = True
+        print("Keep-alive thread started by Gunicorn worker.")
+    
+    return application_instance.webhook_server
        
-if __name__== '__main__':
-    main()
+
