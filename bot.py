@@ -41,7 +41,7 @@ AED_TO_USDT:float = 3.72
 RWF_TO_USDT:float = 1470
 
 #للعايز يبيع
-USDT_TO_SDG:float = 3500
+USDT_TO_SDG:float = 3520
 USDT_TO_AED:float = 3.6
 USDT_TO_RWF:float = 1410
 
