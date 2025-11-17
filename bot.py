@@ -1336,7 +1336,7 @@ def setup_application() -> Application:
 
     app.post_init = set_webhook_on_startup
     
-    return app
+    
 
 # --- Global Application Instance ---
 # Initialize the application once.
