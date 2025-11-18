@@ -530,9 +530,9 @@ async def handle_buy_amount(update: Update, context: ContextTypes.DEFAULT_TYPE) 
         usdt_amount = amount_to_pay / rate
         
         # 3. Get Link
-        if currency_code == 'AED': link = USDT_TO_AED
-        elif currency_code == 'SDG': link = USDT_TO_SDG
-        elif currency_code == 'RWF': link = USDT_TO_RWF
+        if currency_code == 'AED': link = USDT_AED_LINK
+        elif currency_code == 'SDG': link = USDT_SDG_LINK
+        elif currency_code == 'RWF': link = USDT_RWF_LINK
         else: link = tele_user
         
         # 4. Generate Final Message
@@ -551,7 +551,7 @@ async def handle_buy_amount(update: Update, context: ContextTypes.DEFAULT_TYPE) 
 الخطوة التالية:
 يرجى الضغط على الرابط أدناه للتواصل مع الإدارة وتأكيد عملية الدفع والحصول على USDT.
 👇👇👇
-{USDT_AED_LINK}
+{link}
 
 أو يمكنك العودة إلى القائمة الرئيسية /start
 """
