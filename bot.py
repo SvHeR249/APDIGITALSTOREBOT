@@ -46,7 +46,7 @@ USDT_TO_AED:float = 3.6
 USDT_TO_RWF:float = 1410
 
 # User pays AED, receives SDG
-SDG_TO_AED:float = 985
+SDG_TO_AED:float = 990
 CB_MBOK_SDG_AED = 'mbok_aed_sdg_flow'
 
 # User pays SDG, receives AED
