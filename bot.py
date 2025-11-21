@@ -38,12 +38,12 @@ CB_BUY = 'BUY_USDT'
 #للعايز يشتري 
 SDG_TO_USDT:float = 3640
 AED_TO_USDT:float = 3.72
-RWF_TO_USDT:float = 1470
+RWF_TO_USDT:float = 1480
 
 #للعايز يبيع
 USDT_TO_SDG:float = 3500
 USDT_TO_AED:float = 3.6
-USDT_TO_RWF:float = 1410
+USDT_TO_RWF:float = 1430
 
 # User pays AED, receives SDG
 SDG_TO_AED:float = 990
@@ -66,6 +66,7 @@ SDG_TO_RWF:float = 40/100
 
 CB_AED = 'AED'
 tele_user = url = "https://t.me/APDigitalStores"
+ARGENTINA_LINK = url = "https://wa.me/p/32578787798431918/249120095551"
 RWANDA_LINK = url = "https://wa.me/p/25149003804712308/249120095551"
 PHILIPPINES_LINK = url = "https://wa.me/p/25877716681815156/249120095551"
 ZAMBIA_LINK = url = "https://wa.me/p/32202032589442635/249120095551"
@@ -87,6 +88,7 @@ CB_BACK_USDT = 'back_to_usdt'
 CB_AED_BACK_TO_MENU = 'back_to_menu_aed'
 CB_RWF_BACK_TO_MENU = 'back_to_menu_rwf'
 
+CB_ARGENTINA = 'argentina_starlink'
 CB_RWANDA = 'rwanda_starlink'
 CB_THE_PHILIPPINES = 'the_philippines_starlink'
 CB_MALAWI = 'malawi_starlink'
@@ -216,6 +218,7 @@ async def starlink_command(update: Update, context: ContextTypes.DEFAULT_TYPE) -
     await query.answer()
 
     keyboard = [
+        [InlineKeyboardButton("الارجنتين 🇦🇷 | 87,500 ARS", callback_data=CB_ARGENTINA)],
         [InlineKeyboardButton("🇪🇺  أوروبا | 89 €", callback_data=CB_EUROPE)],
         [InlineKeyboardButton("🇭🇹 هايتي | 85$", callback_data=CB_HAITI)],
         [InlineKeyboardButton("KES 14,000 | 🇰🇪 كينيا", callback_data=CB_KENYA)],
@@ -828,7 +831,7 @@ async def show_sell_rwf(update: Update, context: ContextTypes.DEFAULT_TYPE) -> i
     )
     return SELL_USDT_SUBMENU
 
-async def show_rwanda_price(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
+async def show_argentina_price(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
     query = update.callback_query
     await query.answer()
     price_text = f"""
@@ -842,6 +845,41 @@ async def show_rwanda_price(update: Update, context: ContextTypes.DEFAULT_TYPE) 
 💸 Roam Unlimited
 {SDG_TO_USDT*100} SDG (بالجنيه السوداني)
 ━━━━━━━━━━━━━━
+💬 الأسعار تشمل العمولة
+
+تجديد الاشتراك : ⬇
+{ARGENTINA_LINK}
+    
+    
+    """
+                 
+    # Recreate the Starlink menu keyboard to keep the Back button visible
+    keyboard = [
+        
+        [InlineKeyboardButton("العودة الى قائمة الدول ↩️", callback_data=CB_BACK_STARLINK_COUNTRIES)],
+       
+    ]
+    reply_markup = InlineKeyboardMarkup(keyboard)
+    await query.edit_message_text(
+        text=price_text,
+        reply_markup=reply_markup
+    )
+    return STARLINK_SUBMENU
+
+async def show_rwanda_price(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
+    query = update.callback_query
+    await query.answer()
+    price_text = f"""
+    🌍 Roam Unlimited
+🇦🇷 87,500 ARS
+━━━━━━━━━━━━━━
+💵 Roam Unlimited
+76 USDT (بالدولار الرقمي)
+━━━━━━━━━━━━━━
+🇸🇩 Roam Unlimited
+276,640 SDG (بالجنيه السوداني)
+━━━━━━━━━━━━━━
+
 💬 الأسعار تشمل العمولة
 
 تجديد الاشتراك : ⬇
@@ -1198,6 +1236,7 @@ def main() -> None:
             
             STARLINK_MENU: [
                 # Handlers for country price details
+                CallbackQueryHandler(show_argentina_price, pattern='^' + CB_ARGENTINA + '$'),
                 CallbackQueryHandler(show_europe_price, pattern='^' + CB_EUROPE + '$'),
                 CallbackQueryHandler(show_hatiti_price, pattern='^' + CB_HAITI + '$'),
                 CallbackQueryHandler(show_kenya_price, pattern='^' + CB_KENYA + '$'),
@@ -1214,6 +1253,7 @@ def main() -> None:
             ],
             
             STARLINK_SUBMENU:[
+                CallbackQueryHandler(show_argentina_price, pattern='^' + CB_ARGENTINA),
                 CallbackQueryHandler(show_europe_price, pattern='^' + CB_EUROPE),
                 CallbackQueryHandler(show_hatiti_price, pattern='^' + CB_HAITI),
                 CallbackQueryHandler(show_kenya_price, pattern='^' + CB_KENYA),
