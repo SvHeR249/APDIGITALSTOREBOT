@@ -835,16 +835,16 @@ async def show_argentina_price(update: Update, context: ContextTypes.DEFAULT_TYP
     query = update.callback_query
     await query.answer()
     price_text = f"""
-    
-🌍 Roam Unlimited
-💴 128,000 RWF
+    🌍 Roam Unlimited
+🇦🇷 87,500 ARS
 ━━━━━━━━━━━━━━
 💵 Roam Unlimited
-100 USDT (بالدولار الرقمي)
+76 USDT (بالدولار الرقمي)
 ━━━━━━━━━━━━━━
-💸 Roam Unlimited
-{SDG_TO_USDT*100} SDG (بالجنيه السوداني)
+🇸🇩 Roam Unlimited
+{SDG_TO_USDT*76} SDG (بالجنيه السوداني)
 ━━━━━━━━━━━━━━
+
 💬 الأسعار تشمل العمولة
 
 تجديد الاشتراك : ⬇
@@ -871,15 +871,14 @@ async def show_rwanda_price(update: Update, context: ContextTypes.DEFAULT_TYPE) 
     await query.answer()
     price_text = f"""
     🌍 Roam Unlimited
-🇦🇷 87,500 ARS
+🇷🇼 128,000 RWF
 ━━━━━━━━━━━━━━
 💵 Roam Unlimited
-76 USDT (بالدولار الرقمي)
+100 USDT (بالدولار الرقمي)
 ━━━━━━━━━━━━━━
 🇸🇩 Roam Unlimited
-276,640 SDG (بالجنيه السوداني)
+{SDG_TO_USDT*100} SDG (بالجنيه السوداني)
 ━━━━━━━━━━━━━━
-
 💬 الأسعار تشمل العمولة
 
 تجديد الاشتراك : ⬇
