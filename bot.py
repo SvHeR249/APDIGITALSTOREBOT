@@ -36,22 +36,17 @@ CB_SELL = 'SELL_USDT'
 CB_BUY = 'BUY_USDT'
 
 #للعايز يشتري 
-<<<<<<< HEAD
+
 SDG_TO_USDT:float = 3630
-=======
 SDG_TO_USDT:float = 3640
->>>>>>> 218c1ffae931881dfe3b1dcf61b7c65a4509fa42
 AED_TO_USDT:float = 3.72
 RWF_TO_USDT:float = 1480
 
 #للعايز يبيع
 USDT_TO_SDG:float = 3500
 USDT_TO_AED:float = 3.6
-<<<<<<< HEAD
 USDT_TO_RWF:float = 1445
-=======
 USDT_TO_RWF:float = 1430
->>>>>>> 218c1ffae931881dfe3b1dcf61b7c65a4509fa42
 
 # User pays AED, receives SDG
 SDG_TO_AED:float = 990
