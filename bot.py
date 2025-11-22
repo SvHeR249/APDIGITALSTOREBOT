@@ -51,7 +51,7 @@ CB_MBOK_SDG_AED = 'mbok_aed_sdg_flow'
 
 # User pays SDG, receives AED
 AED_TO_SDG_LESS:float = 950.00
-AED_TO_SDG_MORE:float = 960.00
+AED_TO_SDG_MORE:float = 953.00
 CB_MBOK_AED_SDG = 'mbok_sdg_aed_flow'
 
 
