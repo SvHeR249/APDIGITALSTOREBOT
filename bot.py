@@ -38,18 +38,18 @@ CB_BUY = 'BUY_USDT'
 #للعايز يشتري 
 
 SDG_TO_USDT:float = 3630
-SDG_TO_USDT:float = 3700
+SDG_TO_USDT:float = 3670
 AED_TO_USDT:float = 3.75
 RWF_TO_USDT:float = 1480
 
 #للعايز يبيع
-USDT_TO_SDG:float = 3580
+USDT_TO_SDG:float = 3555
 USDT_TO_AED:float = 3.6
 USDT_TO_RWF:float = 1445
 USDT_TO_RWF:float = 1430
 
 # User pays AED, receives SDG
-SDG_TO_AED:float = 1008
+SDG_TO_AED:float = 1000
 CB_MBOK_SDG_AED = 'mbok_aed_sdg_flow'
 
 # User pays SDG, receives AED
