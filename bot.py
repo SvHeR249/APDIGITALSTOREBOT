@@ -64,7 +64,7 @@ CB_MBOK_RWF_SDG = 'mbok_rwf_sdg_flow'
 
  # User pays RWF, receives SDG
 CB_MBOK_SDG_RWF = 'mbok_sdg_rwf_flow'
-SDG_TO_RWF:float = 40/100
+SDG_TO_RWF:float = 41/100
 
 
 CB_AED = 'AED'
