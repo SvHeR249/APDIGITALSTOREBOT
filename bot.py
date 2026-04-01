@@ -38,7 +38,7 @@ CB_BUY = 'BUY_USDT'
 #للعايز يشتري 
 
 SDG_TO_USDT:float = 3630
-SDG_TO_USDT:float = 4100
+SDG_TO_USDT:float = 4030
 AED_TO_USDT:float = 3.75
 RWF_TO_USDT:float = 1480
 
